@@ -1,12 +1,14 @@
 from tkinter import *
 from tkinter import messagebox
 import pandas
-from random import choice
+import random
 import json
 
 BACKGROUND_COLOR = "#006600"
 BUTTON_COLOR = "#6699ff"
 
+current_park = {}
+to_visit = {}
 
 # try:
 # 	data = pandas.read_csv("stl_parks_visited.csv")
@@ -16,31 +18,32 @@ BUTTON_COLOR = "#6699ff"
 # else:
 # 	to_visit = data.to_dict(orient="records")
 
+# Push "Get Park" button to get the name of a random park to visit
+def new_park():
 
-# def new_park():
-# #  	# When the get_park_button is activated this function will pull a random park off of the stl_parks_list.csv and display it to the user.
-#  	with open("stl_parks_list.csv") as original_data:
-#  		to_visit = original_data.read().split()
-#  		current_park = random.choice(to_visit)
-# 		# print(current_park)
-#  	# canvas.itemconfig(currentark, text=current_park["Park"]
+	current_park = park_input.get()
+	new_data = {
+		park: {"Park": park}
+	}
+	 	with open("stl_parks_list.csv") as original_data:
+	 		to_visit = original_data.read().split()
+	 		current_park = random.choice(to_visit)
+	 		messagebox.showinfo(title=current_park, message=f"Your park is: {to_visit}")
+		# print(current_park)}
+	 		
 
-
- 	
-
+# Push the "Confirm" button to confirm that you want to visit this park. The park name will then be moved to a new csv of visited parks and removed from the parks list.
 def confirm_park():
-	global to_visit
-	# Once the random park is selected by the random_park function, the user may confirm the park by clicking the confirm button. The park information will then be deleted off of the stl_parks_list.csv and added to a new document stl_parks_visited.csv
-	# The user will see a messagebox pop up telling them the park's name and address.
-	# The program will be reset and the entry area will be blank
-	to_visit.remove(new_park)
+	to_visit.remove(current_park)
+	print(len(to_visit))
 	data = pandas.DataFrame(to_visit)
 	data.to_csv("stl_parks_visited.csv", index=False)
+	# messagebox.showinfo(title=current_park, message=f"Your park is: {current_park}")
+	pass
 
-def skip_park():
-# 	# Once the random park is selected by the random_park function, the user may skip that park by clicking the skip button. The park information will be left where it is and a new random park will be generated and displayed for the user to confirm or skip. 
-	new_park()
-# 	pass
+# Push the "Skip" button to skip the park and get a different suggestion. Park names remain on the parks list until they are confirmed.
+def skip_park(): 
+	pass
 
 
 # --- UI Setup ---
@@ -59,28 +62,21 @@ website_label = Label(text="St. Louis Parks at Random")
 website_label.grid(column=0, row=0, columnspan=2)
 
 # --- Buttons ---
-get_park_button = Button(text="GET PARK", width=20, bg=BUTTON_COLOR, font=("bold"))
-get_park_button.grid(column=0, row=1, columnspan=2, sticky='', pady=20) 
+get_park_button = Button(text="GET PARK", width=20, bg=BUTTON_COLOR, font=("bold"), command=new_park)
+get_park_button.grid(column=0, row=2, columnspan=2, sticky='', pady=20) 
 
-confirm_button = Button(text="CONFIRM", width=10, bg=BUTTON_COLOR, font=("bold"))
-confirm_button.grid(column=0, row=2)
+confirm_button = Button(text="CONFIRM", width=10, bg=BUTTON_COLOR, font=("bold"), command=confirm_park)
+confirm_button.grid(column=0, row=3)
 
-skip_button = Button(text="SKIP", width=10, bg=BUTTON_COLOR, font=("bold"))
-skip_button.grid(column=1, row=2)
+skip_button = Button(text="SKIP", width=10, bg=BUTTON_COLOR, font=("bold"), command=skip_park)
+skip_button.grid(column=1, row=3)
 
 # --- Entries ---
-# park_input = Entry(width=20)
-# park_input.grid(column=0, row=2)
+park_input = Entry(width=20)
+park_input.grid(column=0, row=1, columnspan=2)
 
 
 # new_park()
 
 
 window.mainloop()
-
-
-
-# Access the stl_parks_list.csv and randomly select one park from the list for the user to visit
-# Once selected, remove that park from the list of parks to visit and save it into a new csv file called stl_parks_visited_csv
-# Append the stl_parks_list.csv by removing the park from the list so that the next time the user wants to use the app they will get only new parks
-# If user wants to skip that park and get a different Park name, skip over that park and leave it in stl_parks_list.csv to be pulled another time.
