@@ -8,23 +8,22 @@ BACKGROUND_COLOR = "#006600"
 BUTTON_COLOR = "#6699ff"
 
 
-current_park = {}
-to_visit = {}
-
-try:
-	data = pandas.read_csv("stl_parks_visited.csv")
-except FileNotFoundError:
-	original_data = pandas.read_csv("stl_parks_list.csv")
-	to_visit = original_data.to_dict(orient="records")
-else:
-	to_visit = data.to_dict(orient="records")
+# try:
+# 	data = pandas.read_csv("stl_parks_visited.csv")
+# except FileNotFoundError:
+# 	original_data = pandas.read_csv("stl_parks_list.csv")
+# 	to_visit = original_data.to_dict(orient="records")
+# else:
+# 	to_visit = data.to_dict(orient="records")
 
 
-def new_park():
-#  	# When the get_park_button is activated this function will pull a random park off of the stl_parks_list.csv and display it to the user.
- 	global current_park
- 	current_park = random.choice(to_visit)
- 	# canvas.itemconfig(current_park, text=current_park["Park"]
+# def new_park():
+# #  	# When the get_park_button is activated this function will pull a random park off of the stl_parks_list.csv and display it to the user.
+#  	with open("stl_parks_list.csv") as original_data:
+#  		to_visit = original_data.read().split()
+#  		current_park = random.choice(to_visit)
+# 		# print(current_park)
+#  	# canvas.itemconfig(currentark, text=current_park["Park"]
 
 
  	
@@ -47,31 +46,31 @@ def skip_park():
 # --- UI Setup ---
 window = Tk()
 window.title("St. Louis Parks at Random")
-window.config(padx=20, pady=20, bg=BACKGROUND_COLOR)
+window.config(pady=20, bg=BACKGROUND_COLOR)
 
-canvas = Canvas(width=500, height=400)
+canvas = Canvas(width=400, height=300)
 arch_img = PhotoImage(file="gateway-arch-park.png")
-canvas.create_image(324, 228, image=arch_img)
+canvas.create_image(226, 159, image=arch_img)
 canvas.config(bg=BACKGROUND_COLOR, highlightthickness=0)
-canvas.grid(row=1, column=0, )
+canvas.grid(row=0, column=0, columnspan=2, sticky='')
 
 # --- Label ---
 website_label = Label(text="St. Louis Parks at Random")
-website_label.grid(column=0, row=1)
+website_label.grid(column=0, row=0, columnspan=2)
 
 # --- Buttons ---
 get_park_button = Button(text="GET PARK", width=20, bg=BUTTON_COLOR, font=("bold"))
-get_park_button.grid(column=1, row=2) 
+get_park_button.grid(column=0, row=1, columnspan=2, sticky='', pady=20) 
 
-confirm_button = Button(text="CONFIRM", width=20, bg=BUTTON_COLOR, font=("bold"))
-confirm_button.grid(column=0, row=3)
+confirm_button = Button(text="CONFIRM", width=10, bg=BUTTON_COLOR, font=("bold"))
+confirm_button.grid(column=0, row=2)
 
-skip_button = Button(text="SKIP", width=20, bg=BUTTON_COLOR, font=("bold"))
-skip_button.grid(column=1, row=3)
+skip_button = Button(text="SKIP", width=10, bg=BUTTON_COLOR, font=("bold"))
+skip_button.grid(column=1, row=2)
 
 # --- Entries ---
-park_input = Entry(width=50)
-park_input.grid(column=0, row=2)
+# park_input = Entry(width=20)
+# park_input.grid(column=0, row=2)
 
 
 # new_park()
