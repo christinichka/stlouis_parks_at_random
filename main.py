@@ -25,10 +25,10 @@ def new_park():
 	new_data = {
 		park: {"Park": park}
 	}
-	 	with open("stl_parks_list.csv") as original_data:
-	 		to_visit = original_data.read().split()
-	 		current_park = random.choice(to_visit)
-	 		messagebox.showinfo(title=current_park, message=f"Your park is: {to_visit}")
+	with open("stl_parks_list.csv") as original_data:
+		to_visit = original_data.read().split()
+		current_park = random.choice(to_visit)
+		messagebox.showinfo(title=current_park, message=f"Your park is: {to_visit}")
 		# print(current_park)}
 	 		
 
@@ -49,17 +49,25 @@ def skip_park():
 # --- UI Setup ---
 window = Tk()
 window.title("St. Louis Parks at Random")
-window.config(pady=20, bg=BACKGROUND_COLOR)
+window.config(padx=20, pady=20, bg=BACKGROUND_COLOR)
 
-canvas = Canvas(width=400, height=300)
-arch_img = PhotoImage(file="gateway-arch-park.png")
-canvas.create_image(226, 159, image=arch_img)
-canvas.config(bg=BACKGROUND_COLOR, highlightthickness=0)
-canvas.grid(row=0, column=0, columnspan=2, sticky='')
+canvas = Canvas(width=250, height=200, bg="white")
+question_text = canvas.create_text(
+			125, 
+			100, 
+			text="YOUR PARK", 
+			fill=BACKGROUND_COLOR,
+			font=("Ariel", 20, "italic")
+			)
+canvas.grid(row=1, column=0, columnspan=2, pady=20)
+# arch_img = PhotoImage(file="gateway-arch-park.png")
+# canvas.create_image(226, 159, image=arch_img)
+# canvas.config(bg=BACKGROUND_COLOR, highlightthickness=0)
+# canvas.grid(row=0, column=0, columnspan=2, sticky='')
 
 # --- Label ---
-website_label = Label(text="St. Louis Parks at Random")
-website_label.grid(column=0, row=0, columnspan=2)
+website_label = Label(text="St. Louis Parks at Random", fg="white", bg=BACKGROUND_COLOR)
+website_label.grid(column=1, row=0, columnspan=2)
 
 # --- Buttons ---
 get_park_button = Button(text="GET PARK", width=20, bg=BUTTON_COLOR, font=("bold"), command=new_park)
@@ -72,8 +80,8 @@ skip_button = Button(text="SKIP", width=10, bg=BUTTON_COLOR, font=("bold"), comm
 skip_button.grid(column=1, row=3)
 
 # --- Entries ---
-park_input = Entry(width=20)
-park_input.grid(column=0, row=1, columnspan=2)
+# park_input = Entry(width=20)
+# park_input.grid(column=0, row=1, columnspan=2)
 
 
 # new_park()
