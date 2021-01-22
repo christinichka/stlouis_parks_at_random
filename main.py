@@ -2,47 +2,27 @@ from tkinter import *
 from tkinter import messagebox
 import pandas
 import random
-import json
+import csv
 
 BACKGROUND_COLOR = "#006600"
 BUTTON_COLOR = "#6699ff"
 
-current_park = {}
-to_visit = {}
 
-# try:
-# 	data = pandas.read_csv("stl_parks_visited.csv")
-# except FileNotFoundError:
-# 	original_data = pandas.read_csv("stl_parks_list.csv")
-# 	to_visit = original_data.to_dict(orient="records")
-# else:
-# 	to_visit = data.to_dict(orient="records")
-
-# Push "Get Park" button to get the name of a random park to visit
+# # Click Get Park button which generates a random park name from the 
 def new_park():
+	with open("stl_parks_list.csv") as f:
+	  park = f.readlines()
+	  chosen_park = random.choice(park)
+	  print(chosen_park)	
 
-	current_park = park_input.get()
-	new_data = {
-		park: {"Park": park}
-	}
-	with open("stl_parks_list.csv") as original_data:
-		to_visit = original_data.read().split()
-		current_park = random.choice(to_visit)
-		messagebox.showinfo(title=current_park, message=f"Your park is: {to_visit}")
-		# print(current_park)}
-	 		
 
-# Push the "Confirm" button to confirm that you want to visit this park. The park name will then be moved to a new csv of visited parks and removed from the parks list.
+# # Push the "Confirm" button to confirm that you want to visit this park. The park name will then be moved to a new csv of visited parks and removed from the parks list.
 def confirm_park():
-	to_visit.remove(current_park)
-	print(len(to_visit))
-	data = pandas.DataFrame(to_visit)
-	data.to_csv("stl_parks_visited.csv", index=False)
-	# messagebox.showinfo(title=current_park, message=f"Your park is: {current_park}")
 	pass
 
-# Push the "Skip" button to skip the park and get a different suggestion. Park names remain on the parks list until they are confirmed.
-def skip_park(): 
+
+# # Push the "Skip" button to skip the park and get a different suggestion. Park names remain on the parks list until they are confirmed.
+def skip_park():
 	pass
 
 
@@ -51,15 +31,15 @@ window = Tk()
 window.title("St. Louis Parks at Random")
 window.config(padx=20, pady=20, bg=BACKGROUND_COLOR)
 
-canvas = Canvas(width=250, height=200, bg="white")
-question_text = canvas.create_text(
-			125, 
-			100, 
-			text="YOUR PARK", 
+canvas = Canvas(width=300, height=100, bg="white")
+park_text = canvas.create_text(
+			150, 
+			50, 
+			text="TEST", 
 			fill=BACKGROUND_COLOR,
 			font=("Ariel", 20, "italic")
 			)
-canvas.grid(row=1, column=0, columnspan=2, pady=20)
+canvas.grid(row=1, column=0, columnspan=2, pady=20, sticky="NESW")
 # arch_img = PhotoImage(file="gateway-arch-park.png")
 # canvas.create_image(226, 159, image=arch_img)
 # canvas.config(bg=BACKGROUND_COLOR, highlightthickness=0)
