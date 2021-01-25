@@ -13,7 +13,7 @@ def new_park():
 	with open("stl_parks_list.csv") as f:
 	  park = f.readlines()
 	  chosen_park = random.choice(park)
-	  print(chosen_park)	
+	  canvas.itemconfig(park_text, text = chosen_park)	
 
 
 # # Push the "Confirm" button to confirm that you want to visit this park. The park name will then be moved to a new csv of visited parks and removed from the parks list.
@@ -34,8 +34,9 @@ window.config(padx=20, pady=20, bg=BACKGROUND_COLOR)
 canvas = Canvas(width=300, height=100, bg="white")
 park_text = canvas.create_text(
 			150, 
-			50, 
-			text="TEST", 
+			65, 
+			text='Ready, set,\n"GET PARK"', 
+			width=280,
 			fill=BACKGROUND_COLOR,
 			font=("Ariel", 20, "italic")
 			)
@@ -59,9 +60,7 @@ confirm_button.grid(column=0, row=3)
 skip_button = Button(text="SKIP", width=10, bg=BUTTON_COLOR, font=("bold"), command=skip_park)
 skip_button.grid(column=1, row=3)
 
-# --- Entries ---
-# park_input = Entry(width=20)
-# park_input.grid(column=0, row=1, columnspan=2)
+
 
 
 # new_park()
