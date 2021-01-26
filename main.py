@@ -18,7 +18,11 @@ def new_park():
 
 # # Push the "Confirm" button to confirm that you want to visit this park. The park name will then be moved to a new csv of visited parks and removed from the parks list.
 def confirm_park():
-	pass
+	park.remove(chosen_park)
+	print(len(park))
+	data = pandas.DataFrame(park)
+	data.to_csv("data/stl_parks_visited.csv", index=False)
+	new_park()
 
 
 # # Push the "Skip" button to skip the park and get a different suggestion. Park names remain on the parks list until they are confirmed.
