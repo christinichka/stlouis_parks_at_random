@@ -8,6 +8,15 @@ BACKGROUND_COLOR = "#006600"
 BUTTON_COLOR = "#6699ff"
 
 
+# try:
+# 	data = pandas.read_csv("data/stl_parks_visited.csv")
+# except FileNotFoundError:
+# 	original_data = pandas.read_csv("data/stl_parks_list.csv")
+# 	to_learn = original_data.to_dict(orient="records")
+# else:
+# 	to_learn = data.to_dict(orient="records")
+
+
 
 def new_park():
 	with open("stl_parks_list.csv") as f:
@@ -21,8 +30,6 @@ def confirm_park():
 	print(len(park))
 	data = pandas.DataFrame(park)
 	data.to_csv("data/stl_parks_visited.csv", index=False)
-	new_park()
-
 
 
 # --- UI Setup ---
@@ -67,7 +74,7 @@ skip_button.grid(column=1, row=3)
 
 
 
-# new_park()
+new_park()
 
 
 window.mainloop()
