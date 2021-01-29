@@ -8,28 +8,19 @@ BACKGROUND_COLOR = "#006600"
 BUTTON_COLOR = "#6699ff"
 
 
-# try:
-# 	data = pandas.read_csv("data/stl_parks_visited.csv")
-# except FileNotFoundError:
-# 	original_data = pandas.read_csv("data/stl_parks_list.csv")
-# 	to_learn = original_data.to_dict(orient="records")
-# else:
-# 	to_learn = data.to_dict(orient="records")
-
-
+with open("stl_parks_list.csv") as f:
+	park = f.read().splitlines()
 
 def new_park():
-	with open("stl_parks_list.csv") as f:
-	  park = f.readlines()
-	  chosen_park = random.choice(park)
-	  canvas.itemconfig(park_text, text = chosen_park)	
-
+	global chosen_park
+	chosen_park = random.choice(park)
+	canvas.itemconfig(park_text, text=chosen_park)
 
 def confirm_park():
 	park.remove(chosen_park)
 	print(len(park))
-	data = pandas.DataFrame(park)
-	data.to_csv("data/stl_parks_visited.csv", index=False)
+	with open("stl_parks_visited.csv", "a") as f:
+		print(chosen_park, file=f)
 
 
 # --- UI Setup ---
